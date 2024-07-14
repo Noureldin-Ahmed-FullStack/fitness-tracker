@@ -29,9 +29,17 @@ function App() {
                 <RedirectToSignIn />
               </SignedOut>
             </>} />
+            <Route path="/Fitness-Tracker" element={<>
+              <SignedIn>
+                <Layout />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>} />
             <Route path="/sign-up" element={<CenteredPage><SignUp forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage>} />
             <Route path="/sign-in" element={<CenteredPage><SignIn forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage>} />
-            <Route path="/gallery" element={<AuthenticationPage />} />
+            <Route path="/My-Workouts" element={<AuthenticationPage />} />
             <Route path="/about" element={<AuthenticationPage />} />
             <Route path="/contact" element={<AuthenticationPage />} />
             <Route path="*" element={<h1>lol wrong route</h1>} />
