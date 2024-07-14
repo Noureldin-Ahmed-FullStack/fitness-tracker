@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ClerkProvider } from '@clerk/clerk-react'
-import {createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import AuthenticationPage from './Components/AuthenticationPage';
 import { createTheme, ThemeProvider } from '@mui/material';
@@ -17,12 +17,30 @@ const router = createBrowserRouter([
   {
     element: <App />,
     children: [
-      { path: "/", element: <Layout /> },
-      { path: "/Fitness-Tracker", element: <Layout /> },
-      { path: "/My-Workouts", element: <MyWorkouts /> },
+      {
+        path: "/", element: <>
+          <SignedIn>
+            <Layout />
+          </SignedIn>
+          <SignedOut>
+            <RedirectToSignIn />
+          </SignedOut>
+        </>
+      },
+      {
+        path: "/Fitness-Tracker", element: <>
+          <SignedIn>
+            <Layout />
+          </SignedIn>
+          <SignedOut>
+            <RedirectToSignIn />
+          </SignedOut>
+        </>
+      },
+      { path: "/My-Workouts", element: <CenteredPage><MyWorkouts /></CenteredPage> },
       { path: "/sign-in", element: <CenteredPage><SignUp forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
       { path: "/sign-up", element: <CenteredPage><SignIn forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
-
+      { path: "*", element: <CenteredPage><h1>Wrong Route</h1></CenteredPage> },
     ]
   }
 ])

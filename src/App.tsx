@@ -6,7 +6,7 @@ import Navbar from './Components/Navbar';
 function App() {
 
   return (
-    <div className='flex-grow-1'>
+    <div className='flex-grow-1 d-flex flex-column'>
       <Navbar />
       <Outlet />
     </div>
