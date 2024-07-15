@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import { MyContext } from "./ContextProvider"
 import { GiWeightLiftingUp } from "react-icons/gi";
-import { Box } from "@mui/material"
+import { Box, ListItem, ListItemSecondaryAction } from "@mui/material"
 import { Link } from "react-router-dom";
 import './style.css'
 import Button from '@mui/material/Button';
@@ -16,6 +16,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded';
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import { TransitionProps } from '@mui/material/transitions';
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -53,29 +55,47 @@ export default function MyWorkouts() {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
+              Add a Workout!
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
             </Button>
           </Toolbar>
         </AppBar>
+        <Button variant="outlined" sx={{ marginY: '1rem' }} color="secondary">Add Excercise</Button>
         <List>
-          <ListItemButton>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItemButton>
+          <ListItem>
+            <ListItemText sx={{paddingY:'10px'}} primary="Phone ringtone" secondary="Titania" />
+            <ListItemSecondaryAction>
+              <div className="d-flex flex-column">
+                <ListItemButton sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
+                  <KeyboardDoubleArrowUpRoundedIcon/>
+                </ListItemButton>
+                <ListItemButton  sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
+                  <KeyboardDoubleArrowDownRoundedIcon/>
+                </ListItemButton>
+              </div>
+            </ListItemSecondaryAction>
+          </ListItem>
           <Divider />
-          <ListItemButton>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItemButton>
+          <ListItem>
+            <ListItemText sx={{paddingY:'10px'}} primary="Phone ringtone" secondary="Titania" />
+            <ListItemSecondaryAction>
+              <div className="d-flex flex-column">
+                <ListItemButton sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
+                  <KeyboardDoubleArrowUpRoundedIcon/>
+                </ListItemButton>
+                <ListItemButton  sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
+                  <KeyboardDoubleArrowDownRoundedIcon/>
+                </ListItemButton>
+              </div>
+            </ListItemSecondaryAction>
+          </ListItem>
         </List>
       </Dialog>
       <h1>My Workout Plans!</h1>
       {/* <button className="btn btn-outline-success mb-3">Add Workout</button> */}
-      <Button variant="outlined" sx={{marginBottom: '2rem'}} onClick={handleClickOpen}>
+      <Button variant="outlined" sx={{ marginBottom: '2rem' }} onClick={handleClickOpen}>
         Add Workout
       </Button>
       <div className='text-light row g-3 justify-content-center w-100'>

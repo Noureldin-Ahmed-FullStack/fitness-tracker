@@ -17,26 +17,8 @@ const router = createBrowserRouter([
   {
     element: <App />,
     children: [
-      {
-        path: "/", element: <>
-          <SignedIn>
-            <Layout />
-          </SignedIn>
-          <SignedOut>
-            <RedirectToSignIn />
-          </SignedOut>
-        </>
-      },
-      {
-        path: "/Fitness-Tracker", element: <>
-          <SignedIn>
-            <Layout />
-          </SignedIn>
-          <SignedOut>
-            <RedirectToSignIn />
-          </SignedOut>
-        </>
-      },
+      { path: "/", element: <Layout /> },
+      { path: "/Fitness-Tracker", element: <Layout /> },
       { path: "/My-Workouts", element: <CenteredPage><MyWorkouts /></CenteredPage> },
       { path: "/sign-in", element: <CenteredPage><SignUp forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
       { path: "/sign-up", element: <CenteredPage><SignIn forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
