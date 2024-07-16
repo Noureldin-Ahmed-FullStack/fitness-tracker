@@ -19,6 +19,7 @@ import Slide from '@mui/material/Slide';
 import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded';
 import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import { TransitionProps } from '@mui/material/transitions';
+import DraggingList from "./DraggingList";
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
@@ -63,35 +64,19 @@ export default function MyWorkouts() {
           </Toolbar>
         </AppBar>
         <Button variant="outlined" sx={{ marginY: '1rem' }} color="secondary">Add Excercise</Button>
-        <List>
-          <ListItem>
-            <ListItemText sx={{paddingY:'10px'}} primary="Phone ringtone" secondary="Titania" />
-            <ListItemSecondaryAction>
-              <div className="d-flex flex-column">
-                <ListItemButton sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
-                  <KeyboardDoubleArrowUpRoundedIcon/>
-                </ListItemButton>
-                <ListItemButton  sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
-                  <KeyboardDoubleArrowDownRoundedIcon/>
-                </ListItemButton>
-              </div>
-            </ListItemSecondaryAction>
-          </ListItem>
+        {/* <List>
+          <ListItemButton>
+            <ListItemText primary="Phone ringtone" secondary="Titania" />
+          </ListItemButton>
           <Divider />
-          <ListItem>
-            <ListItemText sx={{paddingY:'10px'}} primary="Phone ringtone" secondary="Titania" />
-            <ListItemSecondaryAction>
-              <div className="d-flex flex-column">
-                <ListItemButton sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
-                  <KeyboardDoubleArrowUpRoundedIcon/>
-                </ListItemButton>
-                <ListItemButton  sx={{ outline: "1px",padding:'2px', outlineStyle: 'solid', outlineColor: 'white', borderRadius: '5px', marginY: '4px' }} >
-                  <KeyboardDoubleArrowDownRoundedIcon/>
-                </ListItemButton>
-              </div>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
+          <ListItemButton>
+            <ListItemText
+              primary="Default notification ringtone"
+              secondary="Tethys"
+            />
+          </ListItemButton>
+        </List> */}
+        <DraggingList />
       </Dialog>
       <h1>My Workout Plans!</h1>
       {/* <button className="btn btn-outline-success mb-3">Add Workout</button> */}
