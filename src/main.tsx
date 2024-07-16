@@ -4,24 +4,22 @@ import App from './App.tsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ClerkProvider } from '@clerk/clerk-react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import AuthenticationPage from './Components/AuthenticationPage';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { RedirectToSignIn, SignedIn, SignedOut, SignIn, SignUp } from '@clerk/clerk-react';
+import {SignIn, SignUp } from '@clerk/clerk-react';
 import CenteredPage from './Components/CenteredPage';
 import Layout from './Components/Layout';
 import MyContextProvider from './Components/ContextProvider';
 import MyWorkouts from './Components/MyWorkouts.tsx'
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <App />,
     children: [
       { path: "/", element: <Layout /> },
       { path: "/Fitness-Tracker", element: <Layout /> },
       { path: "/My-Workouts", element: <CenteredPage><MyWorkouts /></CenteredPage> },
-      { path: "/sign-in", element: <CenteredPage><SignUp forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
-      { path: "/sign-up", element: <CenteredPage><SignIn forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
+      { path: "/sign-in", element: <CenteredPage><SignUp routing='hash' forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
+      { path: "/sign-up", element: <CenteredPage><SignIn routing='hash' forceRedirectUrl={'/Fitness-Tracker'} /></CenteredPage> },
       { path: "*", element: <CenteredPage><h1>Wrong Route</h1></CenteredPage> },
     ]
   }
