@@ -20,6 +20,14 @@ import Slide from '@mui/material/Slide';
 // import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import { TransitionProps } from '@mui/material/transitions';
 import DraggingList from "./DraggingList";
+interface Excercise {
+  id: string;
+  ExcerciseName: string;
+  Img: string;
+  Reps: number;
+  Describtion? : string;
+  Sets: number;
+}
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
@@ -29,6 +37,25 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 export default function MyWorkouts() {
+  const [ExcersiseList, setExcersiseList] = useState<Excercise[]>([{
+    id: 'wadawdawd',
+    ExcerciseName: 'pull ups',
+    Img: 'test',
+    Reps: 15,
+    Sets: 3
+  }, {
+    id: 'wadawdawd2',
+    ExcerciseName: 'pull ups',
+    Img: 'test',
+    Reps: 15,
+    Sets: 3
+  }, {
+    id: 'wadawdawd3',
+    ExcerciseName: 'pull ups',
+    Img: 'test',
+    Reps: 15,
+    Sets: 3
+  },])
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,23 +112,32 @@ export default function MyWorkouts() {
             />
           </ListItemButton>
         </List> */}
-        <DraggingList />
+        <DraggingList ExcersiseList={ExcersiseList} setExcersiseList={setExcersiseList} />
       </Dialog>
-      
+
       <Dialog
         open={NestedDialogue}
         onClose={handleNestedClose}
-      // PaperProps={{
-      //   component: 'form',
-      //   onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-      //     event.preventDefault();
-      //     const formData = new FormData(event.currentTarget);
-      //     const formJson = Object.fromEntries((formData as any).entries());
-      //     const email = formJson.email;
-      //     console.log(email);
-      //     handleNestedClose();
-      //   },
-      // }}
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries((formData as any).entries());
+            const obj:Excercise = {
+              id: (ExcersiseList.length + 1).toString(),
+              ExcerciseName: formJson.ExcersiseName,
+              Reps: formJson.Reps,
+              Sets: formJson.Sets,
+              Img: formJson.Img,
+            }
+            console.log(obj);
+            
+            const newARR:Excercise[] = [...ExcersiseList,{...obj,id: (ExcersiseList.length + 1).toString()}]
+            setExcersiseList(newARR)
+            handleNestedClose();
+          },
+        }}
       >
         <DialogTitle>submit Excersise</DialogTitle>
         <DialogContent>
@@ -112,8 +148,8 @@ export default function MyWorkouts() {
             autoFocus
             required
             margin="dense"
-            id="Excersise_Name"
-            name="Excersise_Name"
+            id="ExcersiseName"
+            name="ExcersiseName"
             label="Excersise Name"
             type="text"
             fullWidth
@@ -122,8 +158,8 @@ export default function MyWorkouts() {
           <TextField
             required
             margin="dense"
-            id="sets"
-            name="sets"
+            id="Sets"
+            name="Sets"
             label="No. sets"
             type="number"
             fullWidth
@@ -132,8 +168,8 @@ export default function MyWorkouts() {
           <TextField
             required
             margin="dense"
-            id="reps"
-            name="reps"
+            id="Reps"
+            name="Reps"
             label="No. reps"
             type="number"
             fullWidth
@@ -146,13 +182,13 @@ export default function MyWorkouts() {
             label="Instructions / Describtion"
             placeholder="Instructions"
             variant="outlined"
-            sx={{marginTop:'1rem'}}
+            sx={{ marginTop: '1rem' }}
             multiline
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleNestedClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">Add Excercise</Button>
         </DialogActions>
       </Dialog>
       <h1>My Workout Plans!</h1>
