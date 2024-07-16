@@ -1,8 +1,15 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"
 import { Divider, ListItemButton, ListItemText } from "@mui/material";
+interface Excercise{
+    id: String;
+    ExcerciseName:string;
+    Img: string;
+    Reps: number;
+    Sets: number;
+}
 interface ItemProps {
-    item: string;
+    item: Excercise;
     id: string;
 }
 export default function DragableItem(props: ItemProps) {
@@ -16,7 +23,7 @@ export default function DragableItem(props: ItemProps) {
         <>
             <ListItemButton style={style} id={id} ref={setNodeRef} {...attributes} {...listeners} className='btn btn-secondary TouchActionNone flex-column my-1' >
 
-                <ListItemText primary={item} secondary={item} />
+                <ListItemText primary={item.ExcerciseName} secondary={item.Sets + " * " + item.Reps} />
             </ListItemButton>
             <Divider />
         </>
