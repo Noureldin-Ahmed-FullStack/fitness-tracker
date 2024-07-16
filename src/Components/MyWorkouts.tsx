@@ -21,6 +21,8 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import DraggingList from "./DraggingList";
 import { Excercise } from "./types";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "./FireBaseSetup";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -33,23 +35,11 @@ const Transition = React.forwardRef(function Transition(
 export default function MyWorkouts() {
   const [ExcersiseList, setExcersiseList] = useState<Excercise[]>([{
     id: 'wadawdawd',
-    ExcerciseName: 'pull ups',
+    ExcerciseName: 'Example',
     Img: 'test',
     Reps: 15,
     Sets: 3
-  }, {
-    id: 'wadawdawd2',
-    ExcerciseName: 'pull ups',
-    Img: 'test',
-    Reps: 15,
-    Sets: 3
-  }, {
-    id: 'wadawdawd3',
-    ExcerciseName: 'pull ups',
-    Img: 'test',
-    Reps: 15,
-    Sets: 3
-  },])
+  }])
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,7 +56,22 @@ export default function MyWorkouts() {
   const handleNestedClose = () => {
     setNestedDialogue(false);
   };
-  const { WorkOuts } = useContext(MyContext)
+
+  const PostExercise = async (data: any) => {
+    try {
+      console.log(data);
+      
+      const workOutsDocRef = doc(collection(db, 'Workouts'));
+      await setDoc(workOutsDocRef, {
+        id: workOutsDocRef.id,
+        ...data
+      })
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+  const { WorkOuts, userDbData } = useContext(MyContext)
   return (
     <div className="w-100 ">
       <Dialog
@@ -74,6 +79,22 @@ export default function MyWorkouts() {
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries((formData as any).entries());
+            const obj = {
+              name: formJson.WorkoutName,
+              image: '',
+              WorkOuts: ExcersiseList,
+              user: userDbData?.id
+            }
+            PostExercise(obj)
+            handleClose();
+          },
+        }}
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
@@ -86,26 +107,25 @@ export default function MyWorkouts() {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Add a Workout!
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="WorkoutName"
+                name="WorkoutName"
+                label="Workout Name"
+                type="text"
+                variant="filled"
+              />
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button autoFocus type="submit" color="inherit">
               save
             </Button>
           </Toolbar>
         </AppBar>
+
         <Button variant="outlined" sx={{ marginY: '1rem' }} onClick={handleNestedOpen} color="secondary">Add Excercise</Button>
-        {/* <List>
-          <ListItemButton>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItemButton>
-        </List> */}
+
         <DraggingList ExcersiseList={ExcersiseList} setExcersiseList={setExcersiseList} />
       </Dialog>
 
@@ -118,16 +138,16 @@ export default function MyWorkouts() {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            const obj:Excercise = {
+            const obj: Excercise = {
               id: (ExcersiseList.length + 1).toString(),
               ExcerciseName: formJson.ExcersiseName,
               Reps: formJson.Reps,
               Sets: formJson.Sets,
-              Img: formJson.Img,
+              Img: "Img Test",
             }
             console.log(obj);
-            
-            const newARR:Excercise[] = [...ExcersiseList,{...obj,id: (ExcersiseList.length + 1).toString()}]
+
+            const newARR: Excercise[] = [...ExcersiseList, { ...obj, id: (ExcersiseList.length + 1).toString() }]
             setExcersiseList(newARR)
             handleNestedClose();
           },

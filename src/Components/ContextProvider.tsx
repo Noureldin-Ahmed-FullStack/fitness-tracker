@@ -38,7 +38,7 @@ export default function MyContextProvider(props: props) {
 
       const UserData = firebaseUserData.data() as UserDbData | undefined;
       if (UserData) {
-        setUserDbData(UserData)
+        setUserDbData({...UserData,id:firebaseUserData.id})
         console.log(UserData);
 
         const clerkUser: any = user
