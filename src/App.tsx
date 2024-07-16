@@ -2,7 +2,8 @@ import './App.css'
 
 import { Outlet } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignIn } from '@clerk/clerk-react';
+import CenteredPage from './Components/CenteredPage';
 
 function App() {
 
@@ -10,10 +11,13 @@ function App() {
     <div className='flex-grow-1 d-flex flex-column'>
       <Navbar />
       <SignedIn>
-      <Outlet />
+        <Outlet />
       </SignedIn>
       <SignedOut>
-        <RedirectToSignIn />
+        {/* <RedirectToSignIn /> */}
+        <CenteredPage>
+          <SignIn />
+        </CenteredPage>
       </SignedOut>
     </div>
   )
