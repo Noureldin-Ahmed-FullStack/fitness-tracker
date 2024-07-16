@@ -2,3 +2,6 @@
     text-decoration: none;
     color: white !important;
 }
+.TouchActionNone{
+    touch-action: none;
+}

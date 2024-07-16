@@ -14,7 +14,7 @@ export default function DragableItem(props: ItemProps) {
     }
     return (
         <>
-            <ListItemButton style={style} id={id} ref={setNodeRef} {...attributes} {...listeners} className='btn btn-secondary flex-column my-1' >
+            <ListItemButton style={style} id={id} ref={setNodeRef} {...attributes} {...listeners} className='btn btn-secondary TouchActionNone flex-column my-1' >
 
                 <ListItemText primary={item} secondary={item} />
             </ListItemButton>
