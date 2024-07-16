@@ -20,14 +20,8 @@ import Slide from '@mui/material/Slide';
 // import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import { TransitionProps } from '@mui/material/transitions';
 import DraggingList from "./DraggingList";
-interface Excercise {
-  id: string;
-  ExcerciseName: string;
-  Img: string;
-  Reps: number;
-  Describtion? : string;
-  Sets: number;
-}
+import { Excercise } from "./types";
+
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;

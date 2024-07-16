@@ -1,13 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities"
 import { Divider, ListItemButton, ListItemText } from "@mui/material";
-interface Excercise{
-    id: String;
-    ExcerciseName:string;
-    Img: string;
-    Reps: number;
-    Sets: number;
-}
+import { Excercise } from "./types";
+
 interface ItemProps {
     item: Excercise;
     id: string;

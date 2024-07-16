@@ -3,13 +3,8 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 // import { useState } from 'react'
 import DragableItem from './DragableItem'
 import { List } from '@mui/material'
-interface Excercise{
-    id: string;
-    ExcerciseName:string;
-    Img: string;
-    Reps: number;
-    Sets: number;
-}
+import { Excercise } from './types';
+
 interface props{
     ExcersiseList: Excercise[];
     setExcersiseList: React.Dispatch<React.SetStateAction<Excercise[] | []>>;

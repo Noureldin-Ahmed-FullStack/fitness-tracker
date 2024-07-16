@@ -2,6 +2,7 @@ import { useUser } from '@clerk/clerk-react';
 import { createContext, useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { db } from './FireBaseSetup';
+import { UserDbData, Workouts } from './types';
 
 // Create a context
 interface MyContextProps {
@@ -18,24 +19,7 @@ interface props {
   children: React.ReactNode
 }
 
-interface UserDbData {
-  id: string;
-  userName: string;
-  email: string;
-}
-interface NestedWorkouts {
-  ExcerciseName: string;
-  Img: string;
-  Reps: number;
-  Sets: number;
-}
-interface Workouts {
-  id:string;
-  WorkOuts: NestedWorkouts[];
-  image: string;
-  name: string;
-  user: string;
-}
+
 export default function MyContextProvider(props: props) {
   const [userDbData, setUserDbData] = useState<UserDbData | null>(null);
   const [WorkOuts, setWorkOuts] = useState<Workouts[]>([]);
