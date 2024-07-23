@@ -5,3 +5,10 @@
 .TouchActionNone{
     touch-action: none;
 }
+.rotated-90{
+    transform: rotate(90deg);
+    display: inline-block;
+  }
+  .greyColor{
+    color: #e2e2e296;
+  }

@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 import './style.css'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import { PiArrowBendDoubleUpLeftFill } from "react-icons/pi";
+
+import './style.css'
+
 // import ListItemText from '@mui/material/ListItemText';
 // import ListItemButton from '@mui/material/ListItemButton';
 // import List from '@mui/material/List';
@@ -33,13 +37,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 export default function MyWorkouts() {
-  const [ExcersiseList, setExcersiseList] = useState<Excercise[]>([{
-    id: 'wadawdawd',
-    ExcerciseName: 'Example',
-    Img: 'test',
-    Reps: 15,
-    Sets: 3
-  }])
+  const [ExcersiseList, setExcersiseList] = useState<Excercise[]>([])
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,7 +58,7 @@ export default function MyWorkouts() {
   const PostExercise = async (data: any) => {
     try {
       console.log(data);
-      
+
       const workOutsDocRef = doc(collection(db, 'Workouts'));
       await setDoc(workOutsDocRef, {
         id: workOutsDocRef.id,
@@ -91,7 +89,12 @@ export default function MyWorkouts() {
               WorkOuts: ExcersiseList,
               user: userDbData?.id
             }
-            PostExercise(obj)
+            if (ExcersiseList.length != 0) {
+              PostExercise(obj)
+            }else{
+              console.log("Excersise list is empty");
+              
+            }
             handleClose();
           },
         }}
@@ -125,8 +128,11 @@ export default function MyWorkouts() {
         </AppBar>
 
         <Button variant="outlined" sx={{ marginY: '1rem' }} onClick={handleNestedOpen} color="secondary">Add Excercise</Button>
-
-        <DraggingList ExcersiseList={ExcersiseList} setExcersiseList={setExcersiseList} />
+        {ExcersiseList.length != 0 ? (
+          <DraggingList ExcersiseList={ExcersiseList} setExcersiseList={setExcersiseList} />
+        ) : (
+          <p className="text-center greyColor">This excercise is empty. Add excercise <div className="rotated-90"><PiArrowBendDoubleUpLeftFill /></div></p>
+        )}
       </Dialog>
 
       <Dialog
