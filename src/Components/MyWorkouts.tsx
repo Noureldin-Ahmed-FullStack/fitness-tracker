@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react"
 import { MyContext } from "./ContextProvider"
 import { GiWeightLiftingUp } from "react-icons/gi";
 import { Box, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material"
-import { Link } from "react-router-dom";
 import './style.css'
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -25,8 +24,9 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import DraggingList from "./DraggingList";
 import { Excercise } from "./types";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "./FireBaseSetup";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -69,7 +69,20 @@ export default function MyWorkouts() {
     }
 
   }
-  const { WorkOuts, userDbData } = useContext(MyContext)
+  const { WorkOuts, userDbData,fetchWorkOuts } = useContext(MyContext)
+  const DeleteWorkout = async (id:string) =>{
+    try {
+      console.log(id);
+
+        const workOutsDocRef = doc(db, 'Workouts',id);
+        await deleteDoc(workOutsDocRef)
+        if (fetchWorkOuts && userDbData) {
+          await fetchWorkOuts(userDbData)
+        }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className="w-100 ">
       <Dialog
@@ -219,7 +232,13 @@ export default function MyWorkouts() {
       <div className='text-light row g-3 justify-content-center w-100'>
         {WorkOuts?.map((item) => (
           <div key={item.id} className='col-6 col-md-4'>
-            <Box className="w-100 bg-dark rounded-3 myOutline d-flex flex-column align-items-center justify-content-center noLink" minHeight={'12rem'} maxHeight={'12rem'} component={Link} to={'/bmi'}>
+            <Box className="w-100 bg-dark position-relative rounded-3 myOutline d-flex flex-column align-items-center justify-content-center noLink" minHeight={'12rem'} maxHeight={'12rem'}>
+            <div className="position-absolute top-0 end-0">
+              <div className="d-flex flex-column me-2 mt-2">
+                <button className="btn btn-outline-info mb-1 p-1 pt-0"><FaRegEdit /></button>
+                <button onClick={()=>DeleteWorkout(item.id)} className="btn btn-outline-danger p-1 pt-0"><FaRegTrashAlt /></button>
+              </div>
+            </div>
               <div className='p-3'>
                 <h5>{item?.name}</h5>
                 <GiWeightLiftingUp size={100} />

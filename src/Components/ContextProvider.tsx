@@ -12,6 +12,7 @@ interface MyContextProps {
   setUserDbData: React.Dispatch<React.SetStateAction<UserDbData | null>>;
   WorkOuts: Workouts[] | [];
   setWorkOuts: React.Dispatch<React.SetStateAction<Workouts[] | []>>;
+  fetchWorkOuts: (ClerkUser: any) => Promise<void>;
 }
 
 export const MyContext = createContext<Partial<MyContextProps>>({});
@@ -103,7 +104,8 @@ export default function MyContextProvider(props: props) {
     userDbData,
     setUserDbData,
     WorkOuts,
-    setWorkOuts
+    setWorkOuts,
+    fetchWorkOuts,
   };
 
   return (
